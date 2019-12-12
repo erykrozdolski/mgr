@@ -16,13 +16,14 @@ class Answer(models.Model):
     value = models.CharField(max_length=200, null=True, blank=True, default="no answer")
     power = models.CharField(max_length=200, null=True, blank=True, default="no answer")
     category = models.CharField(max_length=250, null=True, blank=True, default="no answer")
-    responder = models.ManyToManyField("Responder", related_name="answer_responder")
+    responder = models.ForeignKey(Responder, null=True, blank=True, on_delete=models.CASCADE)
+
 
 class BigAnswer(models.Model):
     answers = models.ManyToManyField("Answer", related_name='answers')
     power = models.CharField(max_length=200, null=True, blank=True, default="no answer")
     category = models.CharField(max_length=250, null=True, blank=True, default="no answer")
-    responder = models.ManyToManyField("Responder", related_name="big_answer_responder")
+    responder = models.ForeignKey(Responder, null=True, blank=True, on_delete=models.CASCADE)
 
 
 class FirstPoll(models.Model):

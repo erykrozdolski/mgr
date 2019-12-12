@@ -6,6 +6,25 @@ from openpyxl import load_workbook
 poll1 = load_workbook('poll1.xlsx')['1']
 poll2 = load_workbook('poll2.xlsx')['1']
 
+def revert_dump(apps, schema_editor):
+    Answer = apps.get_model('web', 'Answer')
+    BigAnswer = apps.get_model('web', 'BigAnswer')
+    Responder = apps.get_model('web', 'Responder')
+    FirstPoll = apps.get_model('web', 'FirstPoll')
+    SecondPoll = apps.get_model('web', 'SecondPoll')
+    for a in Answer.objects.all():
+        a.delete()
+    for ba in BigAnswer.objects.all():
+        ba.delete()
+    for r in Responder.objects.all():
+        r.delete()
+    for fp in FirstPoll.objects.all():
+        fp.delete()
+    for sp in SecondPoll.objects.all():
+        sp.delete()
+    return None
+
+
 def make_dump(apps, schema_editor):
     Answer = apps.get_model('web', 'Answer')
     BigAnswer = apps.get_model('web', 'BigAnswer')
@@ -76,7 +95,8 @@ def make_dump(apps, schema_editor):
             "martial_status" : poll1[f'BM{row}'].value,
             "profession" : poll1[f'BN{row}'].value,
         }
-        responder = Responder(**data).save()
+        responder = Responder(**data)
+        responder.save()
 
         offensive_words = []
         free_time = answer_helper(poll1, free_time_cell_pair, responder)
@@ -89,8 +109,7 @@ def make_dump(apps, schema_editor):
             if value:
                 value = poll1[f'{value}{row}'].value
                 power = poll1[f'{power}{row}'].value
-                # word = Answer(value=value, power=power, responder=responder)
-                word = Answer(value=value, power=power)
+                word = Answer(value=value, power=power, responder=responder)
                 word.save()
                 offensive_words.append(word)
 
@@ -134,5 +153,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(make_dump)
+        migrations.RunPython(make_dump, revert_dump)
     ]
