@@ -1,0 +1,8 @@
+body {
+  font-size: 1rem;
+  font-family: "Lato";
+}
+
+table td{
+    border: 1px solid grey;
+}

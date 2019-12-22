@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from web import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-]
+    path('', views.index, name='index'),
+    path('poll1', views.first_poll, name='poll1'),
+    path('poll2', views.second_poll, name='poll2'),
+    path('kurwa', views.kurwa, name='kurwa'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -38,8 +38,8 @@ class FirstPoll(models.Model):
 class SecondPoll(models.Model):
     kurwa = models.ManyToManyField("BigAnswer", related_name='_s_kurwa')
     chuj = models.ManyToManyField("BigAnswer", related_name='_s_chuj')
-    debil = models.ManyToManyField("BigAnswer", related_name='_s_debil')
     idiota = models.ManyToManyField("BigAnswer", related_name='_s_idiota')
+    debil = models.ManyToManyField("BigAnswer", related_name='_s_debil')
     szmata = models.ManyToManyField("BigAnswer", related_name='_s_szmata')
     pizda = models.ManyToManyField("BigAnswer", related_name='_s_pizda')
     skurwysyn = models.ManyToManyField("BigAnswer", related_name='_s_skurwysyn')

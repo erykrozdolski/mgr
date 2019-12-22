@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="container mt-5">
+  <i>Praca magisterska.</i>
+  <h1>Obelgi w ujęciu symboli kolektywnych.</h1>
+  <h5>Analiza wulgaryzmów, słów obraźliwych i obelg jako możliwych symboli kolektywnych.</h5>
+  <hr>
+  <p><b>Wstęp</b><p>
+  <b>Wprowadzenie</b>
+  <strong>Badanie nr 1.</strong>
+  <div class="d-flex flex-column mb-4">
+    <a href="{% url 'poll1' %}">Słowa obraźliwe</a>
+    <a href="{% url 'poll1' %}">Zbiorcze wyniki</a>
+  </div>
+  <b>Badanie nr 2.</b>
+  <div class="d-flex flex-column mb-4">
+    <a href="{% url 'poll2' %}">Idiota</a>
+    <a href="{% url 'kurwa' %}">Kurwa</a>
+    <a href="{% url 'poll2' %}">Chuj</a>
+    <a href="{% url 'poll2' %}">Debil</a>
+    <a href="{% url 'poll2' %}">Pizda</a>
+  </div>
+  <b>Bibliografia</b>
+
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+
+  <h4>kurwa</h4>
+  <a href="{% url 'index' %}">spis treści</a>
+    <table>
+      <thead>
+        <th>types</th>
+        <th>ilość wystąpień</th>
+        <th>tokens</th>
+      </thead>
+      <tbody>
+        {% for answer in categories %}
+          <tr>
+            {{answer}}
+            <td>
+              {{answer.0}}
+            </td>
+            <td>
+              {{answer.1}}
+            </td>
+            <td>
+              {{answer.2}}
+            </td>
+            <td>
+              {{answer.3}}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}

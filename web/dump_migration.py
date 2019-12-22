@@ -68,7 +68,7 @@ def make_dump(apps, schema_editor):
                 answer_list.append(answer)
         return answer_list
 
-    def big_answer_helper(poll, cell_pair_list, responder, rate_cell):
+    def big_answer_helper(poll, cell_pair_list, responder, rate_cell, row):
         big_answer = BigAnswer()
         big_answer.save()
         answer_list = []
@@ -79,7 +79,7 @@ def make_dump(apps, schema_editor):
                 answer = Answer(value=value, category=category)
                 answer.save()
                 answer_list.append(answer)
-        big_answer.answers.set(answer_list)
+        big_answer.answers.add(answer_list)
         big_answer.power = poll[f'{rate_cell}{row}'].value
         big_answer.save()
         return big_answer
@@ -113,11 +113,11 @@ def make_dump(apps, schema_editor):
                 word.save()
                 offensive_words.append(word)
 
-        first_poll.offensive_words.set(offensive_words)
-        first_poll.free_time.set(free_time)
-        first_poll.movie.set(movie)
-        first_poll.what_you_like.set(what_you_like)
-        first_poll.important_in_life.set(important_in_life)
+        first_poll.offensive_words.add(offensive_words)
+        first_poll.free_time.add(free_time)
+        first_poll.movie.add(movie)
+        first_poll.what_you_like.add(what_you_like)
+        first_poll.important_in_life.add(important_in_life)
         first_poll.save()
 
 
@@ -149,7 +149,7 @@ def make_dump(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('web', '0002_auto_20191211_1952'),
+        ('web', '0001_initial'),
     ]
 
     operations = [
