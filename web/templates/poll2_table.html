@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-
-  <h4>kurwa</h4>
+<div class="container mt-4">
   <a href="{% url 'index' %}">spis treści</a>
+  <h4>{{key}}</h4>
+  <p>średnia ocena: {{average_power}}</p>
     <table>
       <thead>
         <th>types</th>
@@ -14,7 +14,6 @@
       <tbody>
         {% for answer in categories %}
           <tr>
-            {{answer}}
             <td>
               {{answer.0}}
             </td>
