@@ -19,11 +19,12 @@ from web import views
 from django.conf import settings
 from django.conf.urls.static import static
 
-poll2_words = ["kurwa", "chuj", "idiota", "debil", "szmata", "pizda", "skurwysyn", "dziwka"]
+poll2_words = ["kurwa", "chuj", "idiota", "debil", "szmata", "pizda", "skurwysyn", "dziwka", "kutas"]
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('intro', views.intro, name='intro'),
+    path('sum_up', views.sum_up, name='sum_up'),
     path('poll1', views.first_poll, name='poll1'),
     path('poll2', views.second_poll, name='poll2'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \

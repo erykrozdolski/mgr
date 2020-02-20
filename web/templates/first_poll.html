@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-
-
-
 {% block content %}
-<div class="container">
 
-<a href="{% url 'index' %}">spis treści</a>
+<div class="container">
+    <p><a href="{% url 'index' %}">spis treści</a></p>
+    <p>Liczba respondentów: 51</p>
+    <p>Liczba odpowiedzi ogółem: {{overall_answers}}</p>
+    <p>Liczba kategorii: {{word_number_list| length}}</p>
     <table>
       <thead>
         <th>types</th>

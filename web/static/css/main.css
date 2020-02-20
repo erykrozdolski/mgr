@@ -5,4 +5,10 @@ body {
 
 table td{
     border: 1px solid grey;
+    padding: .25rem
+}
+
+.tokens {
+  font-size: .85rem;
+  font-style: italic;
 }

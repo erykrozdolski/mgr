@@ -44,3 +44,4 @@ class SecondPoll(models.Model):
     pizda = models.ManyToManyField("BigAnswer", related_name='_s_pizda')
     skurwysyn = models.ManyToManyField("BigAnswer", related_name='_s_skurwysyn')
     dziwka = models.ManyToManyField("BigAnswer", related_name='_s_dziwka')
+    kutas = models.ManyToManyField("BigAnswer", related_name='_s_kutas')

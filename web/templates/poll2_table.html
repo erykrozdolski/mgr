@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-  <a href="{% url 'index' %}">spis treści</a>
+<div class="container mt-2 mb-2">
+  <p class="mb-0"><a href="{% url 'index' %}">spis treści</a></p>
+  <p>
+    <span class="mr-3">Liczba respondentów: <b>64</b></span>
+    <span class="mr-3">Liczba odpowiedzi ogółem: <b>{{overall_answers}}</b></span>
+    <span class="mr-3">Liczba kategorii: <b>{{categories| length}}</b></span>
+  </p>
   <h4>{{key}}</h4>
-  <p>średnia ocena: {{average_power}}</p>
+  <p class="mb-0">średnia ocena: {{average_power}}</p>
     <table>
       <thead>
         <th>types</th>
         <th>ilość wystąpień</th>
+        <th>procent odpowiedzi</th>
         <th>tokens</th>
       </thead>
       <tbody>
@@ -21,9 +27,9 @@
               {{answer.1}}
             </td>
             <td>
-              {{answer.2}}
+              {{answer.2}}%
             </td>
-            <td>
+            <td class="tokens">
               {{answer.3}}
             </td>
           </tr>
