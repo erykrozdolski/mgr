@@ -5,6 +5,22 @@ import itertools
 poll1 = FirstPoll.objects.first()
 poll2 = SecondPoll.objects.first()
 
+def add_other_category(categories, overall_number):
+    new_categories = []
+    others = []
+    number = 0
+    for category in categories:
+        if category[1] >= 3:
+            new_categories.append(category)
+        else:
+            others.append(category)
+    for c in others:
+        number += c[1]
+    percent_value = '{0:.1f}'.format(( number / overall_number) * 100)
+    other = ("inne", number, percent_value, "")
+    new_categories.append(other)
+    return new_categories
+
 def flatten(l):
     return list(itertools.chain(*l))
 
@@ -50,43 +66,8 @@ def create_poll2_table(request, key):
     categories = dedup(categories)
     categories.sort(key= lambda x: x[1], reverse=True)
     overall_answers = len(answers)
-    return render(request, 'poll2_table.html', {'categories':categories, "key": key, "average_power": average_power, "overall_answers": overall_answers})
-
-
-from web.models import BigAnswer, Answer, SecondPoll
-
-def clean_after():
-    a = Answer.objects.last()
-    ba = BigAnswer.objects.last()
-    if a.value == "test":
-        a.delete()
-    if ba.answers.count() == 0:
-        ba.delete()
-
-def handle_kutas(ba_id=None):
-    second_poll = SecondPoll.objects.first()
-    if ba_id:
-        ba = BigAnswer.objects.get(pk=ba_id)
-    else:
-        ba = BigAnswer()
-        ba.save()
-    more = True
-    while more:
-        value = input("Wpisz odpowiedz:")
-        category = input("Wpisz kategorię:")
-        answer = Answer(value=value, category=category)
-        answer.save()
-        ba.answers.add(answer)
-        ba.save()
-        more = input("Więcej odpowiedzi? Y/N")
-        if more != "y":
-            more = False
-
-    power = input("Ocena słowa:")
-    ba.power = power
-    ba.save()
-    second_poll.kutas.add(ba)
-    second_poll.save()
+    categories_with_other = add_other_category(categories, overall_answers)
+    return render(request, 'poll2_table.html', {'categories':categories_with_other, "key": key, "average_power": average_power, "overall_answers": overall_answers})
 
 
 def get_answers_by_name(key):

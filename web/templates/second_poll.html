@@ -1,4 +1,40 @@
-{% load static %}
-{% load staticfiles %}
+{% extends 'base.html' %}
 
-<a href="{% url 'index' %}"><spis treści</a>
+{% block content %}
+<div class="container mt-2 mb-2">
+  <p class="mb-0"><a href="{% url 'index' %}">spis treści</a></p>
+  <p>
+    <span class="mr-3">Liczba respondentów: <b>64</b></span>
+    <span class="mr-3">Liczba odpowiedzi ogółem: <b>{{overall_answers}}</b></span>
+    <span class="mr-3">Liczba kategorii: <b>{{categories| length}}</b></span>
+  </p>
+  <h4>Zebranie wszystkich odpowiedzi do słów kluczowych</h4>
+  <table>
+    <thead>
+      <th>types</th>
+      <th>tokens</th>
+      <th>ilość wystąpień</th>
+      <th>procent odpowiedzi</th>
+    </thead>
+    <tbody>
+      {% for answer in categories %}
+        <tr>
+          <td>
+            {{answer.0}}
+          </td>
+          <td class="tokens">
+            {{answer.3}}
+          </td>
+          <td>
+            {{answer.1}}
+          </td>
+          <td>
+            {{answer.2}}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+
+{% endblock %}

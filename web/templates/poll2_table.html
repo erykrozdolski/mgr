@@ -10,32 +10,32 @@
   </p>
   <h4>{{key}}</h4>
   <p class="mb-0">średnia ocena: {{average_power}}</p>
-    <table>
-      <thead>
-        <th>types</th>
-        <th>ilość wystąpień</th>
-        <th>procent odpowiedzi</th>
-        <th>tokens</th>
-      </thead>
-      <tbody>
-        {% for answer in categories %}
-          <tr>
-            <td>
-              {{answer.0}}
-            </td>
-            <td>
-              {{answer.1}}
-            </td>
-            <td>
-              {{answer.2}}%
-            </td>
-            <td class="tokens">
-              {{answer.3}}
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+  <table>
+    <thead>
+      <th>types</th>
+      <th>tokens</th>
+      <th>ilość wystąpień</th>
+      <th>procent odpowiedzi</th>
+    </thead>
+    <tbody>
+      {% for answer in categories %}
+        <tr>
+          <td>
+            {{answer.0}}
+          </td>
+          <td class="tokens">
+            {{answer.3}}
+          </td>
+          <td>
+            {{answer.1}}
+          </td>
+          <td>
+            {{answer.2}}%
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
   </div>
 
 {% endblock %}

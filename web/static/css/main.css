@@ -4,11 +4,11 @@ body {
 }
 
 table td{
-    border: 1px solid grey;
-    padding: .25rem
+  border: 1px solid grey;
+  padding: .25rem
 }
 
 .tokens {
-  font-size: .85rem;
+  font-size: .55rem;
   font-style: italic;
 }

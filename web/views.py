@@ -6,6 +6,21 @@ from web.core import *
 first_poll = FirstPoll.objects.first()
 second_poll = SecondPoll.objects.first()
 
+lifestyle_answers_id = []
+
+for a in poll1.offensive_words.all():
+    lifestyle_answers_id.append(a.pk)
+for a in poll1.free_time.all():
+    lifestyle_answers_id.append(a.pk)
+for a in poll1.movie.all():
+    lifestyle_answers_id.append(a.pk)
+for a in poll1.what_you_like.all():
+    lifestyle_answers_id.append(a.pk)
+for a in poll1.important_in_life.all():
+    lifestyle_answers_id.append(a.pk)
+for a in poll1.music.all():
+    lifestyle_answers_id.append(a.pk)
+
 def index(request):
     return render(request, 'index.html', {})
 
@@ -23,7 +38,7 @@ def first_poll(request):
 
 def second_poll(request):
     second_poll = SecondPoll.objects.all()[0]
-    
+
     return render(request, 'second_poll.html', {'poll': ""})
 
 def kurwa(request):
@@ -61,8 +76,10 @@ def first_poll_by_responders(request):
     return render(request, 'first_poll.html', {'offensive_words': offensive_words})
 
 def sum_up(request):
-    answers = Answer.objects.exclude(category=None).exclude(responder__poll="poll1")
+    answers = Answer.objects.exclude(category=None).exclude(responder__poll="poll1").exclude(id__in=lifestyle_answers_id)
     categories = list(map(lambda c: get_important(c, answers), answers))
     categories = dedup(categories)
     categories.sort(key= lambda x: x[1], reverse=True)
-    return render(request, 'poll2_table.html', {'categories':categories})
+    overall_answers = answers.count()
+    categories = add_other_category(categories, overall_answers)
+    return render(request, 'second_poll.html', {'categories':categories, "overall_answers": overall_answers})
