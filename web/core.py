@@ -29,7 +29,6 @@ def dedup(l):
 
 def get_important(answer, answer_list):
     related_answers = answer_list.filter(category=answer.category)
-    number = answer_list.filter(category=answer.category).count()
     power_sum = 0
     responds = 0
     for a in related_answers:
@@ -38,17 +37,11 @@ def get_important(answer, answer_list):
             power_sum += int(a.power)
             responds += 1
     average_power = int(power_sum / responds) if responds else "-"
-    category_answers = set([ o.value.lower() for o in answer_list.filter(category=answer.category)])
-    example_str = ", ".join(category_answers)
-    return (answer.category, number, average_power, example_str)
-
-def get_important2(answer, answer_list):
-    related_answers = answer_list.filter(category=answer.category)
     number = answer_list.filter(category=answer.category).count()
     category_answers = set([ o.value.lower() for o in answer_list.filter(category=answer.category)])
     example_str = ", ".join(category_answers)
     percent_value = '{0:.1f}'.format(( number / answer_list.count()) * 100)
-    return (answer.category, number, percent_value, example_str)
+    return (answer.category, number, average_power, example_str, percent_value)
 
 def create_poll2_table(request, key):
     big_answers = getattr(poll2, key).all()
@@ -62,13 +55,16 @@ def create_poll2_table(request, key):
             power_sum += float(ba.power)
             responds += 1
     average_power = int(power_sum / responds) if responds else "-"
-    categories = list(map(lambda c: get_important2(c, answers), answers))
+    categories = list(map(lambda c: get_important(c, answers), answers))
     categories = dedup(categories)
     categories.sort(key= lambda x: x[1], reverse=True)
     overall_answers = len(answers)
     categories_with_other = add_other_category(categories, overall_answers)
     return render(request, 'poll2_table.html', {'categories':categories_with_other, "key": key, "average_power": average_power, "overall_answers": overall_answers})
 
+
+# def general_table():
+#
 
 def get_answers_by_name(key):
     poll2 = SecondPoll.objects.first()
@@ -114,6 +110,15 @@ def set_category_by_value(value, new_category):
 
 def set_category_by_list(lst):
     for a in lst:
+        print("Ustal kategorię:", a.value)
+        new_category = input()
+        if new_category:
+            a.category = new_category
+            a.save()
+
+def set_category_for_none():
+    answers = Answer.objects.filter(category=None)
+    for a in answers:
         print("Ustal kategorię:", a.value)
         new_category = input()
         if new_category:

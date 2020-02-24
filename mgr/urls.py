@@ -23,7 +23,6 @@ poll2_words = ["kurwa", "chuj", "idiota", "debil", "szmata", "pizda", "skurwysyn
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('intro', views.intro, name='intro'),
     path('sum_up', views.sum_up, name='sum_up'),
     path('poll1', views.first_poll, name='poll1'),
     path('poll2', views.second_poll, name='poll2'),

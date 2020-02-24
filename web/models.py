@@ -45,3 +45,12 @@ class SecondPoll(models.Model):
     skurwysyn = models.ManyToManyField("BigAnswer", related_name='_s_skurwysyn')
     dziwka = models.ManyToManyField("BigAnswer", related_name='_s_dziwka')
     kutas = models.ManyToManyField("BigAnswer", related_name='_s_kutas')
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=200, null=False, blank=False)
+
+class GeneralCategory(models.Model):
+    name = models.CharField(max_length=200, null=False, blank=False)
+    categories = models.ManyToManyField("Answer", related_name='categories_of_general')
+    metacategory = models.CharField(max_length=200, null=False, blank=False)

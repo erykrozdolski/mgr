@@ -9,15 +9,19 @@
     <table>
       <thead>
         <th>types</th>
+        <th>tokens</th>
         <th>ilość wystąpień</th>
         <th>średnia ocena</th>
-        <th>tokens</th>
+        <th>%</th>
       </thead>
       <tbody>
         {% for answer in word_number_list %}
           <tr>
             <td>
               {{answer.0}}
+            </td>
+            <td class="tokens">
+              {{answer.3}}
             </td>
             <td>
               {{answer.1}}
@@ -26,7 +30,7 @@
               {{answer.2}}
             </td>
             <td>
-              {{answer.3}}
+              {{answer.4}}%
             </td>
           </tr>
         {% endfor %}
